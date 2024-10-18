@@ -8,13 +8,41 @@
 /public/bundles/
 /var/
 /vendor/
+/composer.lock
+/node_modules/
 ###< symfony/framework-bundle ###
+
+# Ignore IDE specific directories and files
+/.idea/
+/*.iml
 
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
 
-###> symfony/phpunit-bridge ###
-.phpunit.result.cache
+###> phpunit/phpunit ###
 /phpunit.xml
-###< symfony/phpunit-bridge ###
+.phpunit.result.cache
+/coverage
+coverage-html.html
+testdox.html
+###< phpunit/phpunit ###
+
+# Ignore backup files or temporary files
+*.bak
+found
+satisfiable
+
+# Symfony logs and cache
+/var/log/
+/var/cache
+
+# Ignore build or generated files
+/public/build/
+/public/info.php
+/var/sessions/
+
+# Nginx, Docker, and other local environment configuration files
+/nginx/*.conf
+/docker-compose.override.yml
+
