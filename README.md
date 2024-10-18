@@ -63,9 +63,50 @@ docker exec -it symfony_php php bin/console doctrine:database:create --if-not-ex
 docker exec -it symfony_php php bin/console doctrine:migrations:migrate --no-interaction
 ```
 
-### Running the Application
+### Testing the API with Postman
 
-The application should now be accessible. You can check it by navigating to `http://localhost` in your browser (or the port specified in your Docker Compose setup).
+**1. Create a New Request**: Select the desired HTTP method (GET, POST, PUT, DELETE).
+   Example endpoints to test:
+
+
+   - GET http://localhost/api/posts to retrieve all posts.
+
+   - POST http://localhost/api/posts to create a new post.
+
+   - GET http://localhost/api/posts/{id} to retrieve a specific post.
+
+   - PUT http://localhost/api/posts/{id} to update an existing post.
+
+   - DELETE http://localhost/api/posts/{id} to delete a post.
+   
+
+**2. Add Headers**
+
+- For authenticated endpoints, add the Authorization header with a Bearer token:
+```bash
+  Key: Authorization
+  Value: Bearer <your-token>
+```
+
+  - For requests with JSON payloads, add the Content-Type header:
+
+```bash
+  Key: Content-Type
+  Value: application/json
+```
+
+
+**3. Add Body** (for POST/PUT): Use JSON format.
+```json
+  {
+    "title": "My Test Post",
+    "content": "This is the content of the test post."
+  }
+```
+
+**4. Send the Request:** Verify the response status and content.
+
+- For a successful POST request to create a new post, you should get a status code of 201 Created along with the newly created resource's details in the response.
 
 ### Running Tests
 
