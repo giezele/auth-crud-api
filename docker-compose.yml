@@ -1,0 +1,55 @@
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: symfony_php
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - symfony
+    ports:
+      - "9000" # Only expose internally
+
+  db:
+    image: mysql:8.0
+    container_name: symfony_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: symfony
+    ports:
+      - "3306:3306"
+    networks:
+      - symfony
+
+  test_db:
+    image: mysql:8.0
+    container_name: symfony_test_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: symfony_test
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: symfony
+    ports:
+      - "3307:3306"
+    networks:
+      - symfony
+
+  nginx:
+    image: nginx:latest
+    container_name: symfony_nginx
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./:/var/www/html
+    ports:
+      - "8080:80"
+    depends_on:
+      - php
+    networks:
+      - symfony
+
+networks:
+  symfony:
+    driver: bridge
