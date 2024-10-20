@@ -69,15 +69,17 @@ docker exec -it symfony_php php bin/console doctrine:migrations:migrate --no-int
    Example endpoints to test:
 
 
-   - GET http://localhost/api/posts to retrieve all posts.
+   - GET `http://localhost/api/posts` to retrieve all posts.
 
-   - POST http://localhost/api/posts to create a new post.
+   - POST `http://localhost/api/posts` to create a new post.
 
-   - GET http://localhost/api/posts/{id} to retrieve a specific post.
+   - GET `http://localhost/api/posts/{id}` to retrieve a specific post.
 
-   - PUT http://localhost/api/posts/{id} to update an existing post.
+   - PUT `http://localhost/api/posts/{id}` to update an existing post.
 
-   - DELETE http://localhost/api/posts/{id} to delete a post.
+   - DELETE `http://localhost/api/posts/{id}` to delete a post.
+
+   - POST `http://localhost//api/login` - laogin to receive a JWT token.
    
 
 **2. Add Headers**
