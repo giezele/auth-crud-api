@@ -46,4 +46,9 @@ security:
     # Access control configuration
     access_control:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/posts$, roles: PUBLIC_ACCESS, methods: [GET] } # Allow everyone to get all posts
+        - { path: ^/api/posts/\d+$, roles: PUBLIC_ACCESS, methods: [GET] } # Allow everyone to get a single post by ID
+        - { path: ^/api/posts, roles: IS_AUTHENTICATED_FULLY, methods: [POST, PUT, DELETE] } # Restrict create, update, delete actions to authenticated users
+
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER]

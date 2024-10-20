@@ -16,5 +16,8 @@ RUN pecl install xdebug && docker-php-ext-enable xdebug
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Set up Xdebug configuration
+RUN echo "xdebug.mode=coverage" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
 WORKDIR /var/www/html
 

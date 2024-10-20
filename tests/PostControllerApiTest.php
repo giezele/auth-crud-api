@@ -31,7 +31,6 @@ class PostControllerApiTest extends WebTestCase
             'content' => $content,
         ];
 
-        // Send a POST request to the create post endpoint with the pre-configured authorization
         $this->client->request(
         'POST',
         '/api/posts',
@@ -41,16 +40,13 @@ class PostControllerApiTest extends WebTestCase
         json_encode($postData)
         );
 
-        // Assert that the response status code is as expected
         self::assertResponseStatusCodeSame($expectedStatusCode);
 
-        // If an error is expected, assert that the response contains the expected error message
         if ($expectedError) {
         $responseContent = json_decode($this->client->getResponse()->getContent(), true);
             $this->assertArrayHasKey('errors', $responseContent);
             $this->assertContains($expectedError, $responseContent['errors']);
         } else {
-        // Otherwise, assert that the post was created successfully
         $responseContent = json_decode($this->client->getResponse()->getContent(), true);
             $this->assertArrayHasKey('id', $responseContent);
             $this->assertEquals($title, $responseContent['title']);
@@ -58,7 +54,7 @@ class PostControllerApiTest extends WebTestCase
         }
     }
 
-    public function postDataProvider(): array
+    public static function postDataProvider(): array
     {
         return [
             //[title, content, status]

@@ -3,7 +3,8 @@
 This is a simple REST API for a blog post management system. Implemented authentication using JWT (Json Web Token). The API
 allows basic CRUD (Create, Read, Update, Delete) operations on “Post” entities.
 
-There are functional tests implemented for every endpoint.  
+There are functional tests implemented for every endpoint (current line code coverage 95% ;) )
+
 Latest PHP and Symfony versions at the moment.  
 Following PSR-12.
 
@@ -79,7 +80,7 @@ docker exec -it symfony_php php bin/console doctrine:migrations:migrate --no-int
 
    - DELETE `http://localhost/api/posts/{id}` to delete a post.
 
-   - POST `http://localhost//api/login` - laogin to receive a JWT token.
+   - POST `http://localhost//api/login` - login to receive a JWT token.
    
 
 **2. Add Headers**
