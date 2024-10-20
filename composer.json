@@ -75,9 +75,8 @@
         ],
         "phpcs": "vendor/bin/phpcs --standard=PSR12 src",
         "generate-keys": [
-            "if [ ! -f config/jwt/private.pem ]; then mkdir -p config/jwt; openssl genrsa -out config/jwt/private.pem 4096; fi",
-            "if [ ! -f config/jwt/public.pem ]; then openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem; fi",
-            "php bin/console secret:generate"
+            "[ -f config/secrets/dev/dev.decrypt.private.php ] || php bin/console secret:generate",
+            "php bin/console lexik:jwt:generate-keypair --skip-if-exists --no-interaction"
         ]
     },
     "conflict": {

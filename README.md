@@ -63,6 +63,9 @@ docker exec -it symfony_php php bin/console doctrine:database:create --if-not-ex
 
 # Run the migrations
 docker exec -it symfony_php php bin/console doctrine:migrations:migrate --no-interaction
+
+# Update permissions
+docker exec -it symfony_php chmod 644 config/jwt/private.pem
 ```
 
 ### Testing the API with Postman
