@@ -118,11 +118,30 @@ docker exec -it symfony_php chmod 644 config/jwt/private.pem
 
 ### Running Tests
 
-To ensure everything is working properly, you can run the functional tests:
-
+To ensure everything is working properly, you can run the functional tests. You need to explicitly create and migrate the test database (`symfony_test`) before running the PHPUnit tests. 
+```bash
+docker exec -it symfony_php php bin/console doctrine:database:create --env=test --if-not-exists
+docker exec -it symfony_php php bin/console doctrine:migrations:migrate --env=test --no-interaction
+```
+After performing these steps*, you should be able to run your PHPUnit tests
 ```bash
 docker exec -it symfony_php php bin/phpunit
 ```
+
+#### *Database Permissions Note
+
+If you encounter a permission error when trying to create the test database, you may need to grant additional privileges to the MySQL user. To do this, run the following commands inside the MySQL container:
+
+- Enter the MySQL container:
+    ```bash
+    docker exec -it symfony_test_db mysql -u root -p
+    ```
+
+- Grant privileges:
+    ```sql
+    GRANT ALL PRIVILEGES ON symfony_test.* TO 'symfony'@'%';
+    FLUSH PRIVILEGES;
+    ```
 
 ### Stopping the Containers
 
