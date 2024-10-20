@@ -46,10 +46,11 @@ This will build the Docker containers for the application and start them in the 
 
 ### Install Dependencies
 
-Once the containers are up, you need to install the PHP dependencies via Composer. Run the following command inside the PHP container:
+Once the containers are up, you need to install the PHP dependencies via Composer.
 
 ```bash
 docker exec -it symfony_php composer install
+docker exec -it symfony_php composer generate-keys
 ```
 
 ### Database Setup

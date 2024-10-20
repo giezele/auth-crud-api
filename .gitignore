@@ -26,6 +26,7 @@
 /coverage
 coverage-html.html
 testdox.html
+/html-coverage/
 ###< phpunit/phpunit ###
 
 # Ignore backup files or temporary files
@@ -45,4 +46,6 @@ satisfiable
 # Nginx, Docker, and other local environment configuration files
 /nginx/*.conf
 /docker-compose.override.yml
+/config/secrets/
+
 
