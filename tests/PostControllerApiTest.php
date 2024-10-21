@@ -5,7 +5,6 @@ namespace App\Tests;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Security\Core\User\InMemoryUser;
-use Doctrine\ORM\EntityManagerInterface;
 
 class PostControllerApiTest extends WebTestCase
 {

@@ -123,25 +123,12 @@ To ensure everything is working properly, you can run the functional tests. You 
 docker exec -it symfony_php php bin/console doctrine:database:create --env=test --if-not-exists
 docker exec -it symfony_php php bin/console doctrine:migrations:migrate --env=test --no-interaction
 ```
-After performing these steps*, you should be able to run your PHPUnit tests
+In case your `symfony` user has no sufficient privileges to modify the test database, check Troubleshooting.
+
+After performing these steps, you should be able to run your PHPUnit tests
 ```bash
 docker exec -it symfony_php php bin/phpunit
 ```
-
-#### *Database Permissions Note
-
-If you encounter a permission error when trying to create the test database, you may need to grant additional privileges to the MySQL user. To do this, run the following commands inside the MySQL container:
-
-- Enter the MySQL container:
-    ```bash
-    docker exec -it symfony_test_db mysql -u root -p
-    ```
-
-- Grant privileges:
-    ```sql
-    GRANT ALL PRIVILEGES ON symfony_test.* TO 'symfony'@'%';
-    FLUSH PRIVILEGES;
-    ```
 
 ### Stopping the Containers
 
@@ -170,10 +157,24 @@ docker-compose down
 
 ### Troubleshooting
 
+- **Test Database Issues** If you encounter a permission error when trying to create the test database, you may need to grant additional privileges to the MySQL user. To do this, run the following commands inside the MySQL container:
+  - Enter the MySQL container:
+  
+      ```bash
+      docker exec -it symfony_test_db mysql -u root -p
+      ```
+  - Grant privileges:
+  
+      ```sql
+      GRANT ALL PRIVILEGES ON symfony_test.* TO 'symfony'@'%';
+      FLUSH PRIVILEGES;
+      ```
+    
 - **Database Issues**: If you encounter database connection issues, ensure that the database configuration in the `.env` file matches the settings for the Docker container (`DB_HOST=db`, `DB_PORT=3306`).
+
 - **Container Logs**: To view the logs of a container, use:
-  ```bash
-  docker logs symfony_php
-  ```
+    ```bash
+    docker logs symfony_php
+    ```
 
 
