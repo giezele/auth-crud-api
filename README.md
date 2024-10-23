@@ -5,7 +5,7 @@ allows basic CRUD (Create, Read, Update, Delete) operations on “Post” entiti
 
 There are functional tests implemented for every endpoint (current line code coverage 95% ;) )
 
-Latest PHP and Symfony versions at the moment.  
+PHP 8.3 and Symfony 7.1 versions.  
 Following PSR-12.
 
 ### Prerequisites
@@ -80,7 +80,7 @@ docker exec -it symfony_php chmod 644 config/jwt/private.pem
 
    - DELETE `http://localhost/api/posts/{id}` to delete a post.
 
-   - POST `http://localhost//api/login` - login to receive a JWT token.
+   - POST `http://localhost/api/login` - login to receive a JWT token.
    
 
 **2. Add Headers**
