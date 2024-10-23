@@ -5,7 +5,7 @@ allows basic CRUD (Create, Read, Update, Delete) operations on “Post” entiti
 
 There are functional tests implemented for every endpoint (current line code coverage 95% ;) )
 
-PHP 8.3 and Symfony 7.1 versions.  
+PHP 8.3 and Symfony 7.1 versions  
 Following PSR-12.
 
 ### Prerequisites
