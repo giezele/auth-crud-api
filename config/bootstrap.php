@@ -1,0 +1,10 @@
+<?php
+
+use Symfony\Component\Dotenv\Dotenv;
+
+require dirname(__DIR__).'/vendor/autoload.php';
+(new Dotenv())->usePutenv(true)->loadEnv(dirname(__DIR__).'/.env');
+
+//if (file_exists(dirname(__DIR__).'/.env')) {
+//    (new Dotenv())->usePutenv(true)->loadEnv(dirname(__DIR__).'/.env');
+//}

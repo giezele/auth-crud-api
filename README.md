@@ -26,13 +26,8 @@ cd auth-crud-api
 
 ### Environment Configuration
 
-Duplicate the `.env.example` file to create a `.env` file:
-
-```bash
-cp .env.example .env
-```
-
 Make any necessary changes to the environment variables in the `.env` file. For instance, update database credentials or other configurations.
+
 
 ### Docker Setup
 

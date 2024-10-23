@@ -9,11 +9,8 @@ security:
             memory:
                 users:
                     user1:
-                        password: 'password123'
-                        roles: ['ROLE_USER']
-                    admin:
-                        password: 'adminpassword'
-                        roles: ['ROLE_ADMIN']
+                        password: '%env(USER1_PASSWORD)%'
+                        roles: [ 'ROLE_USER' ]
 
     # Firewalls configuration
     firewalls:

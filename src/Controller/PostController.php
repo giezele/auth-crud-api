@@ -12,13 +12,15 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Form\PostRequestType;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class PostController extends AbstractController
 {
     use ValidationHandlerTrait;
 
     public function __construct(
-        private PostService $postService
+        private PostService $postService,
+        private SerializerInterface $serializer
     ) {
     }
 
@@ -35,14 +37,9 @@ class PostController extends AbstractController
         $post = $form->getData();
         $this->postService->savePost($post);
 
-        $responseData = [
-            'id' => $post->getId(),
-            'title' => $post->getTitle(),
-            'content' => $post->getContent(),
-            'created_at' => $post->getCreatedAt()?->format('Y-m-d H:i:s'),
-        ];
+        $jsonData = $this->serializer->serialize($post, 'json', ['groups' => 'post:read']);
 
-        return new JsonResponse($responseData, Response::HTTP_CREATED);
+        return new JsonResponse($jsonData, Response::HTTP_CREATED);
     }
 
     #[Route('/api/posts', name: 'get_all_posts', methods: ['GET'])]
@@ -53,7 +50,9 @@ class PostController extends AbstractController
 
         $paginationData = $this->postService->getAllPostsPaginated($page, $limit);
 
-        return new JsonResponse($paginationData, Response::HTTP_OK);
+        $jsonData = $this->serializer->serialize($paginationData, 'json', ['groups' => 'post:read']);
+
+        return new JsonResponse($jsonData, Response::HTTP_OK, [], true);
     }
 
     #[Route('/api/posts/{id}', name: 'get_post', methods: ['GET'])]
@@ -65,14 +64,9 @@ class PostController extends AbstractController
             return new JsonResponse(['status' => 'Post not found'], Response::HTTP_NOT_FOUND);
         }
 
-        $data = [
-            'id' => $post->getId(),
-            'title' => $post->getTitle(),
-            'content' => $post->getContent(),
-            'created_at' => $post->getCreatedAt()?->format('Y-m-d H:i:s'),
-        ];
+        $jsonData = $this->serializer->serialize($post, 'json', ['groups' => 'post:read']);
 
-        return new JsonResponse($data, Response::HTTP_OK);
+        return new JsonResponse($jsonData, Response::HTTP_OK, [], true);
     }
 
     #[Route('/api/posts/{id}', name: 'update_post', methods: ['PUT'])]
@@ -93,15 +87,9 @@ class PostController extends AbstractController
 
         $this->postService->updatePost($post);
 
-        $responseData = [
-            'id' => $post->getId(),
-            'title' => $post->getTitle(),
-            'content' => $post->getContent(),
-            'created_at' => $post->getCreatedAt()?->format('Y-m-d H:i:s'),
-            'updated_at' => $post->getUpdatedAt()?->format('Y-m-d H:i:s'),
-        ];
+        $jsonData = $this->serializer->serialize($post, 'json', ['groups' => 'post:read']);
 
-        return new JsonResponse($responseData, Response::HTTP_OK);
+        return new JsonResponse($jsonData, Response::HTTP_OK, [], true);
     }
 
     #[Route('/api/posts/{id}', name: 'delete_post', methods: ['DELETE'])]
@@ -115,6 +103,6 @@ class PostController extends AbstractController
 
         $this->postService->deletePost($post);
 
-        return new JsonResponse(['status' => 'Post deleted!'], Response::HTTP_OK);
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }
